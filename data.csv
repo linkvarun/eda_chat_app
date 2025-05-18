@@ -1,6 +1,6 @@
-term,grade,emp_length,issue_y,revol_util_n,int_rate_n,dti_n,avg_cur_bal_n,acc_open_past_24mths_n,loan_amnt_n,loan_status
-36 months,C,10+ years,15,94,12.88,14.85,5796,3,3000,Fully Paid
-36 months,B,10+ years,15,55,9.17,5.84,20315,4,26000,Fully Paid
-36 months,B,2 years,15,46.8,9.76,20.12,8359,8,20000,Fully Paid
-60 months,F,6 years,15,44,24.24,29.84,15837,15,21625,Fully Paid
-36 months,B,10+ years,15,45.1,9.76,4.77,959,3,6000,Fully Paid
+term,grade,emp_length,revol_util_n,int_rate_n,dti_n,avg_cur_bal_n,acc_open_past_24mths_n,loan_amnt_n,loan_status,Revenue
+36,C,10,94,12.88,14.85,5796,3,3000,Fully Paid,3386.4
+36,B,5,55,9.17,5.84,20315,4,26000,Fully Paid,28384.2
+36,B,2,46.8,9.76,20.12,8359,8,20000,Fully Paid,21952
+60,F,6,44,24.24,29.84,15837,15,21625,Charge Off,26866.9
+36,,8,45.1,9.76,4.77,959,3,6000,Fully Paid,6585.6
