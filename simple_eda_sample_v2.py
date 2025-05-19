@@ -98,19 +98,23 @@ def cmd(name, desc):
         return f # return functools.wraps(f)(f)
     return deco
 
+# Show top 5 records
 @cmd("show_head", "Display the first 5 rows of the data")
 def show_head(df):
     print(df.head())
 
+# Describe numeric features
 @cmd("describe_numeric", "Summary statistics of numeric columns")
 def describe_numeric(df):
     print(df.select_dtypes("number").describe().T)
 
+# Missing value %
 @cmd("missing_values", "Percentage of missing values per column")
 def missing_values(df):
     mv = df.isna().mean().mul(100).round(2)
     print((mv[mv>0]).sort_values(ascending=False).to_string())
 
+# Value counts of a feature
 @cmd("value_counts", "Top value counts for a given column (usage: value_counts <col>)")
 def value_counts(df, col=None):
     if not col:
@@ -119,6 +123,7 @@ def value_counts(df, col=None):
         print(f"Column '{col}' not found"); return
     print(df[col].value_counts(dropna=False).head(20))
 
+# Correlation Heatmap
 @cmd("correlation_heatmap", "Correlation heat-map of numeric features")
 def correlation_heatmap(df):
     import matplotlib.pyplot as plt
@@ -155,7 +160,7 @@ def text_to_sql(df, *query_parts):
 
     # No API key fallback
     if not OPENAI_API_KEY:
-        print("⚠️  No API key set. Type a raw SQL query instead like:")
+        print("⚠️  No API key set. Type a SQL query to execute, like:")
         print("text_to_sql SELECT col1, SUM(col2) FROM data WHERE col3 = 'ABC'")
         return
 
@@ -471,7 +476,7 @@ def check_column_exists(df, col):
 
 def check_data_loaded(df):
     if df.empty:
-        print("\u26a0\ufe0f  No data loaded.")
+        print("⚠️  No data loaded.")
         return False
     return True
 
