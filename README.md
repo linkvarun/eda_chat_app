@@ -38,4 +38,5 @@ Future Extensions:
 6) For missing value imputation, outlier treatment, encoding and scaling, provide user a choice to execute from the provided options (e.g. option to use label encoding or one-hot encoding; retain outliers, remove or replace them with a suggested or user provided reasonable value.
 7) Fine tuning system prompts to generate the intented response (currently simulate_decision is not doing a great job). 
 8) More visualizations to be added for better feature analysis.
+9) Perform statistical tests like Chi-sq, ANNOVA F stat, VIF, find weights of evidence and Information values.
    
