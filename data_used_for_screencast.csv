@@ -1,0 +1,7 @@
+term,grade,emp_length,revol_util_n,int_rate_n,dti_n,avg_cur_bal_n,acc_open_past_24mths_n,loan_amnt_n,loan_status,Revenue
+36,C,10,94,12.88,14.85,5796,3,3000,Fully Paid,1159.2
+36,B,5,55,9.17,5.84,20315,4,26000,Fully Paid,7152.6
+36,B,2,46.8,9.76,20.12,8359,8,20000,Fully Paid,5856
+60,F,6,44,24.24,29.84,15837,15,21625,Charge Off,26209.5
+36,,8,45.1,9.76,4.77,959,3,6000,Fully Paid,1756.8
+60,F,50,42,8.2,28.1,,12,21390,Charge Off,8769.9
