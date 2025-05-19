@@ -30,9 +30,12 @@ User functionality(first 5 functions were already present, I have added from fun
 
 
 Future Extensions:
-1) Memory
-2) Interface
-3) More functions
-4) Fine tuning
-5) Decision tree
+1) More features like Outlier detection and treatment, Feature Encoding, Feature Scaling, Auto ML, to be added.
+2) Memory storage to retain the complete chain of conversation.
+3) Add a graphical user interface with Streamlit or Django framework.
+4) Expand the decision tree to include regression use cases, along with Decision tree classifier.
+5) Export option to save the data and visualizations.
+6) For missing value imputation, outlier treatment, encoding and scaling, provide user a choice to execute from the provided options (e.g. option to use label encoding or one-hot encoding; retain outliers, remove or replace them with a suggested or user provided reasonable value.
+7) Fine tuning system prompts to generate the intented response (currently simulate_decision is not doing a great job). 
+8) More visualizations to be added for better feature analysis.
    
