@@ -207,7 +207,7 @@ def decision_simulation(df, *scenario_parts):
         return
 
     if not OPENAI_API_KEY:
-        print("\u26a0\ufe0f No API key configured.")
+        print("⚠️ No API key configured.")
         return
 
     scenario = " ".join(scenario_parts)
@@ -235,10 +235,9 @@ def decision_simulation(df, *scenario_parts):
         f"   - At the end of your code, assign a plain text result string to a variable called result_summary summarizing:\n"
         f"       - Original total revenue\n"
         f"       - New total revenue\n"
-        f"       - The impact (delta)\n\n"
-        f"2. Only return the Python code inside a markdown code block (```python ... ```).\n"
-        f"Do not include explanations, placeholders, comments, or summaries outside the code.\n"
-        f"Do not invent new formulas or assumptions — strictly follow the provided impact calculation formula.\n\n"
+        f"       - The impact (difference)\n\n"
+        f"2. Only return the Python code between the markers ###CODE_START and ###CODE_END.\n"
+        f"Do not include explanations, comments, markdown formatting, or any other text.\n"
         f"If any required column is missing, raise a ValueError in the code.\n"
         f"End of instructions."
     )
@@ -250,30 +249,37 @@ def decision_simulation(df, *scenario_parts):
                 {"role": "system", "content": sys_msg},
                 {"role": "user", "content": scenario}
             ],
-            max_tokens=400,
+            max_tokens=600,
             temperature=0
         )
         reply = response.choices[0].message.content.strip()
 
         import re
-        code_match = re.search(r"```python(.*?)```", reply, re.DOTALL)
+        code_match = re.search(r"###CODE_START(.*?)###CODE_END", reply, re.DOTALL)
         if code_match:
             code = code_match.group(1).strip()
 
+            # Check for literal scenario echo or empty string
+            if code.lower().startswith(scenario.lower()) or len(code.strip()) < 10:
+                print("⚠️  Invalid simulation description. Please describe your scenario like:\n")
+                print("  'Increase int_rate_n by 5 and recalculate Revenue as loan_amnt_n * ((int_rate_n + 5) * term)'")
+                return
+
             local_scope = {"data": df.copy()}
-            exec(code, {}, local_scope)
-
-            result = local_scope.get("result_summary", "\u26a0\ufe0f No result_summary returned by the simulation.")
-
-            print("📊  Simulation Result:\n")
-            print(result)
+            try:
+                exec(code, {}, local_scope)
+                result = local_scope.get("result_summary", "⚠️  No result_summary returned by the simulation.")
+                print("📊  Simulation Result:\n")
+                print(result)
+            except Exception as e:
+                print(f"⚠️  Error executing generated code: {e}")
 
         else:
-            print("⚠️  No Python code block found in response.")
+            print("⚠️  No code block found in response. Make sure to describe your simulation scenario clearly, like:\n")
+            print("  'Increase int_rate_n by 5 and recalculate Revenue as Revenue * ((int_rate_n + 5) / int_rate_n)'")
 
     except Exception as e:
         print(f"⚠️  Error generating simulation: {e}")
-
 
 # Tree Explorer
 @cmd("explore_tree", "Train & explore decision tree")
